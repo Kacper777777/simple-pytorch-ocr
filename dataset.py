@@ -33,7 +33,8 @@ class OCRDataset(Dataset):
         matching_image_paths = []
         prepend = "" if not recursive else "**/"
         for pattern in patterns:
-            matching_image_paths.extend(path.glob(prepend + pattern))
+            for x in path.glob(prepend + pattern):
+                matching_image_paths.append(str(x))
         labels = []
         for file in matching_image_paths:
             with open(f'{file[:-4]}.txt') as reader:
